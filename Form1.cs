@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Numerics;
 
 namespace Buoi07_TinhToan3
 {
@@ -22,6 +23,10 @@ namespace Buoi07_TinhToan3
             txtSo1.Text = txtSo2.Text = "0";
             radCong.Checked = true;             //đầu tiên chọn phép cộng
 
+            // Thêm sự kiện Leave cho các ô nhập dữ liệu
+            txtSo1.Leave += TxtSo_Leave;
+            txtSo2.Leave += TxtSo_Leave;
+
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
@@ -35,23 +40,59 @@ namespace Buoi07_TinhToan3
 
         private void btnTinh_Click(object sender, EventArgs e)
         {
-            //lấy giá trị của 2 ô số
-            double so1, so2, kq = 0;
-            so1 = double.Parse(txtSo1.Text);
-            so2 = double.Parse(txtSo2.Text);
-            //Thực hiện phép tính dựa vào phép toán được chọn
-            if (radCong.Checked) kq = so1 + so2;
-            else if (radTru.Checked) kq = so1 - so2;
-            else if (radNhan.Checked) kq = so1 * so2;
-            else if (radChia.Checked && so2 != 0) kq = so1 / so2;
-            //Hiển thị kết quả lên trên ô kết quả
-            txtKq.Text = kq.ToString();
+            //Kiểm tra xem có phải số nguyên lớn không
+            if (IsBigInteger(txtSo1.Text) && IsBigInteger(txtSo2.Text))
+            {
+                //lấy giá trị của 2 ô số
+                BigInteger bigInt1, bigInt2, bigIntKQ = 0;
+                bigInt1 = BigInteger.Parse(txtSo1.Text);
+                bigInt2 = BigInteger.Parse(txtSo2.Text);
+                //Thực hiện phép tính dựa vào phép toán được chọn
+                if (radCong.Checked) bigIntKQ = bigInt1 + bigInt2;
+                else if (radTru.Checked) bigIntKQ = bigInt1 - bigInt2;
+                else if (radNhan.Checked) bigIntKQ = bigInt1 * bigInt2;
+                else if (radChia.Checked && bigInt2 != 0) bigIntKQ = bigInt1 / bigInt2;
+                //Hiển thị kết quả lên trên ô kết quả
+                txtKq.Text = bigIntKQ.ToString();
+            }
+            else
+            {
+                //lấy giá trị của 2 ô số
+                decimal so1, so2, kq = 0;
+                so1 = decimal.Parse(txtSo1.Text);
+                so2 = decimal.Parse(txtSo2.Text);
+                //Thực hiện phép tính dựa vào phép toán được chọn
+                if (radCong.Checked) kq = so1 + so2;
+                else if (radTru.Checked) kq = so1 - so2;
+                else if (radNhan.Checked) kq = so1 * so2;
+                else if (radChia.Checked && so2 != 0) kq = so1 / so2;
+                //Hiển thị kết quả lên trên ô kết quả
+                txtKq.Text = kq.ToString();
+            }
         }
 
 
         private void txtSo2_Click(object sender, EventArgs e)
         {
             txtSo2.SelectAll();
+        }
+
+        private bool IsBigInteger(string input)
+        {
+            BigInteger temp;
+            return BigInteger.TryParse(input, out temp);
+        }
+
+        private void TxtSo_Leave(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            // Kiểm tra nếu ô nhập dữ liệu trống
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                MessageBox.Show("Ô nhập dữ liệu không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBox.Focus(); // Quay lại ô nhập dữ liệu
+            }
         }
     }
 }
