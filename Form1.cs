@@ -21,6 +21,7 @@ namespace Buoi07_TinhToan3
         {
             txtSo1.Text = txtSo2.Text = "0";
             radCong.Checked = true;             //đầu tiên chọn phép cộng
+
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
@@ -45,6 +46,12 @@ namespace Buoi07_TinhToan3
             else if (radChia.Checked && so2 != 0) kq = so1 / so2;
             //Hiển thị kết quả lên trên ô kết quả
             txtKq.Text = kq.ToString();
+        }
+
+
+        private void txtSo2_Click(object sender, EventArgs e)
+        {
+            txtSo2.SelectAll();
         }
     }
 }
