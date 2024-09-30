@@ -94,5 +94,10 @@ namespace Buoi07_TinhToan3
                 textBox.Focus(); // Quay lại ô nhập dữ liệu
             }
         }
+
+        private void txtSo1_Click(object sender, EventArgs e)
+        {
+            txtSo1.SelectAll();
+        }
     }
 }
