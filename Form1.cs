@@ -41,7 +41,7 @@ namespace Buoi07_TinhToan3
             // Kiểm tra xem có phải số nguyên lớn không
             if (IsBigInteger(txtSo1.Text) && IsBigInteger(txtSo2.Text))
             {
-                // Lấy giá trị của 2 ô số
+                // Lấy giá trị của 2 ô số 
                 BigInteger bigInt1, bigInt2, bigIntKQ = 0;
                 bigInt1 = BigInteger.Parse(txtSo1.Text);
                 bigInt2 = BigInteger.Parse(txtSo2.Text);
