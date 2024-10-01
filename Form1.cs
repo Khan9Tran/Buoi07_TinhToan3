@@ -45,13 +45,21 @@ namespace Buoi07_TinhToan3
                 BigInteger bigInt1, bigInt2, bigIntKQ = 0;
                 bigInt1 = BigInteger.Parse(txtSo1.Text);
                 bigInt2 = BigInteger.Parse(txtSo2.Text);
-
+        
+                // Kiểm tra chia cho 0
+                if (radChia.Checked && bigInt2 == 0)
+                {
+                    MessageBox.Show("Không thể chia cho 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtSo2.Focus(); // Quay lại ô nhập số chia
+                    return;
+                }
+        
                 // Thực hiện phép tính dựa vào phép toán được chọn
                 if (radCong.Checked) bigIntKQ = bigInt1 + bigInt2;
                 else if (radTru.Checked) bigIntKQ = bigInt1 - bigInt2;
                 else if (radNhan.Checked) bigIntKQ = bigInt1 * bigInt2;
-                else if (radChia.Checked && bigInt2 != 0) bigIntKQ = bigInt1 / bigInt2;
-
+                else if (radChia.Checked) bigIntKQ = bigInt1 / bigInt2;
+        
                 // Hiển thị kết quả lên ô kết quả
                 txtKq.Text = bigIntKQ.ToString();
             }
@@ -61,17 +69,26 @@ namespace Buoi07_TinhToan3
                 decimal so1, so2, kq = 0;
                 so1 = decimal.Parse(txtSo1.Text);
                 so2 = decimal.Parse(txtSo2.Text);
-
+        
+                // Kiểm tra chia cho 0
+                if (radChia.Checked && so2 == 0)
+                {
+                    MessageBox.Show("Không thể chia cho 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtSo2.Focus(); // Quay lại ô nhập số chia
+                    return;
+                }
+        
                 // Thực hiện phép tính dựa vào phép toán được chọn
                 if (radCong.Checked) kq = so1 + so2;
                 else if (radTru.Checked) kq = so1 - so2;
                 else if (radNhan.Checked) kq = so1 * so2;
-                else if (radChia.Checked && so2 != 0) kq = so1 / so2;
-
+                else if (radChia.Checked) kq = so1 / so2;
+        
                 // Hiển thị kết quả lên ô kết quả
                 txtKq.Text = kq.ToString();
             }
         }
+
 
         private void txtSo2_Click(object sender, EventArgs e)
         {
